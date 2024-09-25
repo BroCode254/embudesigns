@@ -1,0 +1,47 @@
+{% extends 'base.html'%}
+{% load static %}
+{%block title%}Products {%endblock%}
+{%block content%}
+<link rel="stylesheet" href="static\css\bootstrap.min.css">
+    <div class="image d-flex" >
+        <p class="d-flex"><img src="static\images\cropped.png" alt="" width="42" height="40" ></p>
+            <h3><b>Embu designs</b></h3>
+    
+    </div>
+    <style>
+        tr,td{
+            border:1px solid #f5f5f5 !important;
+        }
+    </style>
+    <table class="table table-stripped">
+        <tr class="py-2">
+            <thead>
+                <td></td>
+                <td style="padding: 4px;"><b>Product Name</b></td>
+                <td style="padding: 4px;"><b>Product Price</b></td>
+                <td colspan="4" class="py-2" style="padding: 4px;"><b>product Description</b></td>
+            </thead>
+            {% for prod in products%}
+            <tbody class="col">
+                <td style="padding: 4px;">{{prod.id}}</td>
+                <td style="padding: 4px;">{{prod.product_name}}</td>
+                <td style="padding: 4px;">{{prod.product_price}}</td>
+                <td colspan="4" style="padding: 4px;">
+                    <ul>
+                        <li>{{prod.feature1}}</li>
+                        <li>{{prod.feature2}}</li>
+                        <li>{{prod.feature3}}</li>
+                        <li>{{prod.feature4}}</li>
+                        <li>{{prod.feature5}}</li>
+                    </ul>
+                </td>
+            </tbody>
+           
+            {%endfor%}
+        </tr>
+    </table>
+
+    <p style="text-align: center;font-size: small;margin-top:30px;" >All rights reserved by Embu designs | 2024</p>
+</body>
+</html>
+{%endblock%}

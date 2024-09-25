@@ -1,0 +1,273 @@
+{% extends 'base.html'%}
+{% load static %}
+{%block title%}Checkout {%endblock%}
+{%block content%}
+{% include 'desktopsidebar.html' %}
+{% include  'topnav.html'%}
+
+
+{%if messages%}
+
+<div class="offset-lg-2 mt-1">
+    <div class="col-lg-12">
+        {% include 'messages.html' %}
+    </div>
+</div>
+{%endif%}
+<div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="messageModalLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Message content will be inserted here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="okButton" class="btn btn-dark" data-bs-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2" id="message-container"></div>
+<body style="background-color: #eee;">
+
+    {% if not order.complete %}
+    <div class="container">
+        <div class="row p-2 mb-3">
+            <div class="col-lg-4 col-md-10  p-2">
+                {%if items%}
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <td colspan="4">
+                                <h4><b>Order summary</b></h4>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in items%}
+                        <tr>
+                            <td colspan="2" class="">{{item.product.product_name}}</td>
+                            <td><b>X{{item.quantity}}</b></td>
+                        </tr>
+                        {%endfor%}
+                        <tr>
+                            <td colspan="4"> Total items<h4><b>{{order.get_cart_items}}</b></h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">Total Amount(Ksh)<h4><b>{{order.get_cart_total}}</b></h4></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-lg-7 col-md-10 p-2">
+                <div class="form card p-2">
+                    <hr>
+                    <form action="" method="post" style="margin:10px;" id="form">
+                        {%csrf_token%}
+
+                        {% if customer%}
+
+                        {%else%}
+                        <h5 class="py-2"><b>Customer Information</b></h5>
+                        <div class="row">
+                            <div class="col-lg-5 mb-2">
+                                <input type="text" name="first_name" placeholder="First name" id=""
+                                    class="form-control">
+                            </div>
+                            <div class="col-lg-5 mb-2">
+                                <input type="text" name="last_name" placeholder="Last Name" id="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-5 mb-2">
+                                <input type="email" name="email" placeholder="Enter you email" id=""
+                                    class="form-control">
+                            </div>
+                        </div>
+                        {%endif%}
+                        <div class="row mt-2">
+                            <h5 class="py-2"><b>Shipping Information</b></h5>
+                            <div class="col-lg-5 mb-2">
+                                <input type="text" name="county" id="" placeholder="county e.g Nairobi" class="form-control"required>
+                            </div>
+                            <div class="col-lg-5 mb-2">
+                                <input type="text" name="location" placeholder="Location" id="" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="row mt-2">
+                            <div class="col-lg-5 mb-2">
+                                <input type="text" name="state" id="" placeholder="state" class="form-control" required>
+                            </div>
+                            <div class="col-lg-5">
+                                <input type="text" name="zipcode" placeholder="zipcode" id="" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-lg-5 mb-2">
+                                <input type="phone" name="phone" id="" class="form-control" placeholder="+254.." required>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <button type="submit" id="show-btn" class="btn btn-success" style="background-color: teal;">submit</i></button>
+                            </div>
+                            <!--  id="show-btn" -->
+                        </div>
+                    </form>
+                </div>
+                <div id="pay-section" class="card mt-2 pay-section">
+                    <h4 class="p-2 "><b>Payment options</b></h4>
+                    <div class="col-lg-4 p-2 mb-4">
+                        <button class=" btn  btn-success mpesa-btn" id="pay-now-btn" style="background-color: teal;">Proceed with <img
+                            src="/static/images/mpesa-icon.png" alt="" width="15%%">
+                            <i class="fa fa-spinner fa-spin hidden " id="loading-icon"></i>
+                        </button>
+                    </div>
+                </div>
+
+               
+                </div>
+                    </div>
+                  </div>
+    {%else%}
+    {%if messages%}
+<div class="offset-lg-2">
+  <div class="col-lg-12">
+    {% include 'messages.html' %}
+  </div>
+
+</div>
+{%endif%}
+    {%endif%}
+    {%endif%}
+
+</body>
+<script>
+    var user = "{{request.user}}"
+    var total = "{{order.get_cart_total}}"
+    console.log(total)
+    var shipping = "{{order.shipping}}"
+    document.getElementById('pay-section').classList.add('hidden')
+    const buttonL = document.getElementById("pay-now-btn");
+    const icon = document.getElementById("loading-icon");
+
+    var form = document.getElementById('form')
+    form.addEventListener('submit', function (e) {
+        e.preventDefault()
+        document.getElementById('show-btn').classList.add('hidden')
+        console.log('form has been submitted')
+        document.getElementById('pay-section').classList.remove('hidden')
+    })
+
+    document.getElementById('pay-now-btn').addEventListener('click', function (e) {
+        buttonL.disabled = true;
+        icon.classList.remove("hidden");
+        submitFormData()
+    })
+
+    function submitFormData() {
+        userData = {
+            'first_name': null,
+            'last_name': null,
+            'email': null,
+            'total': total
+        }
+
+        shippingInfo = {
+            'county': null,
+            'state': null,
+            'location': null,
+            'zipcode': null,
+            'phone': null,
+        }
+        shippingInfo.county = form.county.value
+        shippingInfo.state = form.state.value
+        shippingInfo.location = form.location.value
+        shippingInfo.zipcode = form.zipcode.value
+        shippingInfo.phone = form.phone.value
+
+        if (user == 'AnonymousUser') {
+            userData.first_name = form.first_name.value
+            userData.last_name = form.last_name.value
+            userData.email = form.email.value
+        }
+        fetch("/process_order/", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": csrftoken,
+    },
+    body: JSON.stringify({ 'form': userData, 'shipping': shippingInfo }),
+})
+.then((response) => {
+    if (!response.ok) {
+        throw new Error("Network response was not ok");
+    }
+    return response.json();
+})
+.then((data) => {
+    const modalBody = document.getElementById('modalBody');
+    const messageModal = new bootstrap.Modal(document.getElementById('messageModal'));
+
+
+    if (data.success) {
+        console.log('success', data);
+        modalBody.innerHTML = `
+        <div class="alert-check py-3">
+        <strong style='margin-left:4px;'><i class='fa fa-check-circle'></i> Success!</strong> Your order has been placed.<a href='{% url 'orders'%}' class=' text-dark' style='text-decoration:underline'>check your orders </a>
+        </div>
+            
+        `;
+
+        cart = {};
+        document.cookie = "cart=" + JSON.stringify(cart) + ";domain=;path=/";
+        document.getElementById('okButton').onclick = function() {
+        window.location.href = "{% url 'index' %}";
+            };
+            buttonL.disabled = false;
+            icon.classList.add("hidden");
+    } else {
+        console.error("Error:", data.error);
+        modalBody.innerHTML = `
+            <div class='alert-exclamation py-4'>
+            <strong style='margin-left:4px;'><i class='fa fa-exclamation-circle'></i><span class='me-3' style='margin-left:5px;'>Error:</span></strong> ${data.error}
+            </div>
+        `;
+        buttonL.disabled = false;
+        icon.classList.add("hidden");
+    }
+
+    // Show the modal
+    messageModal.show();
+})
+.catch((error) => {
+    console.error("Error:", error);
+    const modalBody = document.getElementById('modalBody');
+    const messageModal = new bootstrap.Modal(document.getElementById('messageModal'));
+    
+    modalBody.innerHTML = `
+        <div class="alert-exclamation">
+        <strong>Error:</strong> Failed to complete transaction.
+        </div>
+    `;
+    
+    buttonL.disabled = false;
+    icon.classList.add("hidden");
+    
+    // Show the modal
+    messageModal.show();
+});
+    }
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.20.0/js/mdb.min.js" integrity="sha512-XFd1m0eHgU1F05yOmuzEklFHtiacLVbtdBufAyZwFR0zfcq7vc6iJuxerGPyVFOXlPGgM8Uhem9gwzMI8SJ5uw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+{%endblock%}

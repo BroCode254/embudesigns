@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order</title>
+</head>
+<body>
+    <style>
+            tr,td{
+            border:0.5px solid #0a0a0a !important;
+        }
+
+    </style>
+    {% if order%}
+    <div class="image d-flex" style="margin-bottom:30px;">
+    <p class="d-flex"><img src="static\images\cropped.png" alt="" width="42" height="40" ></p>
+        <h3><b>Elphamatt</b></h3>
+        <div class="address">
+            <p style="float: right;">Dear: {{order.customer.first_name}} {{order.customer.last_name}},</p>
+            <p style="float: right;">Email: {{order.customer.email}},</p>
+            <p style="float: right;">Transaction id: {{order.transaction_id}},</p>
+            <p style="float: right;">Date ordered: {{order.date_ordered}}</p>
+        </div>
+
+        <table class="table table-stripped">
+            <tr class="py-2">
+                <thead>
+                    <td></td>
+                    <td style="padding: 4px;"><b>Product Name</b></td>
+                    <td style="padding: 4px;"><b>Product Price</b></td>
+                    <td style="padding: 4px;"><b>product Quantity</b></td>
+                    <td style="padding: 4px;"><b>Total (sh)</b></td>
+                    
+
+                </thead>
+    
+                {%for item in orderitems%}
+                <tbody >
+                    <td style="padding: 4px;">{{item.product.id}}</td> 
+                    <td style="padding: 4px;">  {{item.product.product_name}}</td>
+                    <td style="padding: 4px;">  {{item.product.product_price}}</td>
+                    <td style="padding: 4px;">  {{item.quantity}}</td>
+                    <td style="padding: 4px;">{{item.get_total}}</td>
+                </tbody>
+               {%endfor%}
+                
+            </tr>
+            <tr>
+                <td style="padding: 4px;"><b>Shipping cost (sh)</b></td>
+                <td style="padding: 4px;" colspan="5"><b>{{order.shipping_cost}}</b></td>
+            </tr>
+            <tr>
+                <td style="padding: 4px;"><b>Total (sh)</b></td>
+                <td style="padding: 4px;" colspan="5"><b>{{order.get_cart_total}}</b></td>
+            </tr>
+        </table>
+</div>
+{%endif%}
+<p style="text-align: center;margin-top:40px;">Thank you for shopping with Elphamatt tech solutions</p>
+<p style="text-align: center;"><a href="elphamatt.pythonanywhere.com">Shop more</a></p>
+    
+</body>
+</html>

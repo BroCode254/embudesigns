@@ -1,0 +1,105 @@
+
+
+
+<header>
+    <!-- Intro settings -->
+    <style>
+      /* Default height for small devices */
+      #intro-example {
+        height: 250px;
+      }
+      @media (min-width: 992px) {
+        #intro-example {
+          height: 150px;
+        }
+      }
+    </style>
+
+    <!-- Background image -->
+     {% if menwear%}
+    <div id="intro-example" class="p-5 text-center bg-image "
+      style="background-image: url('/static/images/men.jpg');">
+      <div class="mask" style="background-color: rgba(0, 0, 0, 0.7);">
+        <div class="d-flex justify-content-center align-items-center h-100">
+          <div class=" text text-light mt-2">
+            <p>
+                         <h3 class="mb-3 text-white font-weight-light "><a href="{%url 'index'%}" class="text text-white">Home</a>&raquo;
+                            <a href="{%url 'products'%}" class="text text-white text-lead">Products</a>&raquo;
+                            <a href="#" class="text text-white">cctv</a>
+
+                        </h3>
+
+
+            </p>
+            <h5 class="mb-6">
+              Men Clothes and Accessories
+            </h5>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    {%endif%}
+  
+    {% if accessories%}
+    <div id="intro-example" class="p-5 text-center bg-image "
+      style="background-image: url('/static/images/shopping.jpg');">
+      <div class="mask" style="background-color: rgba(0, 0, 0, 0.7);">
+        <div class="d-flex justify-content-center align-items-center h-100">
+          <div class="text-white mt-2">
+            <h3 class="mb-3 text-white font-weight-light "><a href="{%url 'index'%}" class="text text-white">Home</a>&raquo;
+                            <a href="{%url 'products'%}" class="text text-white text-lead">Products</a>&raquo;
+                            <a href="#" class="text text-white">Accessories</a>
+
+                        </h3>
+            <h5 class="mb-6">
+              Accessories
+            </h5>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    {%endif%}
+    {% if all%}
+    <div id="intro-example" class="p-5 text-center bg-image "
+      style="background-image: url('/static/images/black.jpg');">
+      <div class="mask" style="background-color: rgba(0, 0, 0, 0.7);">
+        <div class="d-flex justify-content-center align-items-center h-100">
+          <div class="text-white mt-2">
+            <h3 class="mb-3 text-white font-weight-light "><a href="{%url 'index'%}" class="text text-white">Home</a>&raquo;
+                            <a href="{%url 'products'%}" class="text text-white text-lead">Products</a>
+
+                        </h3>
+            <h5 class="mb-6">
+              Browse through all our products
+            </h5>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    {%endif%}
+
+    {% if womenwear%}
+    <div id="intro-example" class="p-5 text-center bg-image "
+      style="background-image: url('/static/images/black.jpg');">
+      <div class="mask" style="background-color: rgba(0, 0, 0, 0.7);">
+        <div class="d-flex justify-content-center align-items-center h-100">
+          <div class="text-white mt-2">
+            <h3 class="mb-3 text-white font-weight-light "><a href="{%url 'index'%}" class="text text-white">Home</a>&raquo;
+                            <a href="{%url 'products'%}" class="text text-white text-lead">Products</a>&raquo;
+                            <a href="#" class="text text-white">Women cloths products</a>
+
+                        </h3>
+            <h5 class="mb-6">
+              Women Cloth Products and Accessories
+            </h5>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    {%endif%}
+    <!-- Background image -->
+  </header>

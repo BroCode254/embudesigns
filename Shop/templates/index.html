@@ -1,0 +1,259 @@
+{% extends 'base.html'%}
+{% load static %}
+{%block title%}Home | Embu designs {%endblock%}
+{%block content%}
+{% include 'desktopsidebar.html' %}
+
+{% include 'topnav.html' %}
+
+
+{%if messages%}
+<div class="">
+  <div class="col-lg-12 ">
+    {% include 'messages.html' %}
+  </div>
+</div>
+{%endif%}
+{% include 'carousel.html' %}
+<div class="container-fluid featured rounded">
+  <div class="container mb-3  ">
+    <h4 class="mt-3 text mt-4 "><b>Featured Products</b></h4>
+    <hr style="border: 3px solid #1375a3;width:100px;border-radius: 4px;margin-top: -3px;z-index: 1000;"
+      class="bg-info text text-info">
+    <div class="row ">
+
+      {%if featured%}
+
+
+      {% for product in featured%}
+
+      <div class="card rounded product mb-2 col-xm-5  col-sm-5 col-md-5  col-lg-3  mx-1 p-1 reveal">
+        <a href="{%  url 'add_item' product.product_id%}" class="text text-dark">
+          <div class="product-img bg-image hover-zoom ripple ripple-surface ripple-surface-light"
+            data-mdb-ripple-color="light">
+            {%if product.image%}
+            <img src="{{product.image.url}}" class="card-img-top w-100" alt="product image" />
+            {%else%}
+            <img src="/static/images/bg.png" class="card-img-top w-100" alt="product image" />
+            {%endif%}
+          </div>
+          <div class="card-body ">
+            <div class="d-flex justify-content-between">
+              <p class="text-muted">{{product.get_type_name}}</p>
+              <p class="small text-warning"><s>Ksh {{product.previous_price}}</s></p>
+            </div>
+            <div class="d-flex justify-content-between mb-1">
+              <p class="text-muted mb-0">Available: <span class="fw-bold">{{product.Items_remaining}}</span></p>
+              <div class="ms-auto text-warning">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-between mb-1">
+              <h5 class="mb-0">{{product.product_name}}</h5>
+
+            </div>
+            
+
+
+            <div class="d-flex justify-content-between mb-1">
+              <div class="d-flex justify-content-between mb-1">
+                <h6 class="mb-0"><b>Ksh {{product.product_price}}</b></h6>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-between mb-1">
+
+            </div>
+          </div>
+        </a>
+      </div>
+
+
+      {% endfor%}
+      {%endif%}
+    </div>
+  <p class="mt-1">
+    <a href="{% url 'products'%}" class="btn-link py-2">&laquo;Explore more products&raquo; </a>
+  </p>
+  </div>
+
+</div>
+
+<div class="container-fluid " style="background-color: #eee;">
+
+  <div class="services ">
+
+
+    <div class="row">
+      <h4 class="text  p-3 text-center "><b>Why choose us?</b></h4>
+      <hr>
+      <div class="col-sm-11  col-md-5 col-lg-6  reveal">
+        <div class="service-card  p-3">
+          <p><img src="/static/images/icon1.png" alt="" width="70" height="70"><br></p>
+          <div class="mb-3">
+            <h4><b style="letter-spacing:1.2px">24/7Customer support</b></h4>
+           <p class="text-muted" style="letter-spacing:0.5px">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam praesentium similique neque, incidunt dolorem voluptas laboriosam. Voluptatibus sint at est voluptas ea aut harum odit quae beatae. Explicabo, vel qui?
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque aut eaque inventore laboriosam nulla? Fugit veritatis esse sit dolores quas tempore nesciunt corrupti consectetur, perspiciatis velit enim, veniam dolore beatae.
+           </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-11  col-md-5 col-lg-6  reveal">
+        <div class="service-card  p-3 ">
+          <p><img src="/static/images/icon3.png" alt="" width="70" height="70"><br></p>
+          <div class="mb-3">
+            <h4><b style="letter-spacing:1.2px">Timely deliverly</b></h4>
+            <p class="text-muted" style="letter-spacing:0.5px" >
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Incidunt fugiat eos minus, corporis eveniet odio, laudantium veniam accusamus delectus quod impedit consequuntur vero dolor tenetur eum exercitationem, suscipit officia illo?,Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam officia error veniam alias veritatis ex iusto quisquam! Dicta corporis eveniet iusto impedit aliquid tempore et soluta sapiente? Repellendus, in fugiat!
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-11  col-md-5  col-lg-6  reveal">
+        <div class="service-card  p-3">
+          <p><img src="/static/images/icon2.png" alt="" width="70" height="70"><br></p>
+          <div class="mb-3">
+            <h4><b style="letter-spacing:1.2px">Tech support</b></h4>
+            <p class="text-muted" style="letter-spacing:0.5px">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique excepturi dolor, enim debitis cumque velit nemo labore iusto sint doloremque. Aperiam neque dolores aliquid officiis consequuntur voluptatibus. Id, libero dolorum. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo minima, itaque beatae, ipsam cumque dolorum esse quae dolore pariatur sapiente exercitationem repellat veritatis temporibus explicabo sint necessitatibus deleniti ab omnis?
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-11 col-md-11 col-lg-6   reveal">
+        <div class="service-card p-3 ">
+          <p><img src="/static/images/defender.png" alt="" width="50" height="70"><br></p>
+          <div class="mb-3">
+            <h4><b style="letter-spacing:1.2px">Secure Transactions</b></h4>
+            <p class="text-muted" style="letter-spacing:0.5px">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem adipisci eligendi aut ipsa rem velit assumenda, reiciendis tempora est at error ullam officia nostrum cum, doloremque ex, officiis consequatur eos. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nobis eos provident dicta. Saepe, voluptatum rerum magni inventore explicabo earum fugit non debitis. Sunt atque dolor tempora, aut praesentium debitis eaque.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+<div class="container-fluid bg-light p-3">
+  <div class=" bg-white py-3">
+    <div class="row reveal p-2">
+      <h4 class="p-3 "><b>About us</b></h4>
+      <hr class="new5">
+      <div class="col-lg-5">
+        <p style="letter-spacing:0.5px">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint quod qui quae exercitationem error quibusdam cumque, quo doloribus nisi at! Minima beatae sint molestiae iste laudantium cumque nulla explicabo possimus.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae quaerat quo praesentium blanditiis sapiente nemo, distinctio molestiae assumenda laborum esse, fuga facilis a nesciunt, soluta sequi accusamus ipsum accusantium perspiciatis!
+        </p>
+
+      </div>
+      <div class="col-lg-6">
+        <div class="values">
+          <h4 class="text-center"><b>Our Core values</b></h4>
+          <p class="text-center"> <i class="fa fa-check-circle-o"></i> Integrity</p>
+          <p class="text-center"> <i class="fa fa-check-circle-o"></i> Deliverly</p>
+          <p class="text-center"> <i class="fa fa-check-circle-o"></i> Quality</p>
+        </div>
+        <div class="mission">
+          <h4 class="text-center"><b>Our mission</b></h4>
+          <p><i class="fa fa-check-square-o "></i> Our misssion is to provide quality fashion products at afforable
+            prices to diverse customers all over the country</p>
+        </div>
+        <div class="vision">
+          <h4 class="text-center"><b>Our vision</b></h4>
+          <p> <i class="fa fa-check-square-o "></i>Our vision is to Upgrade Latest Fashion to Complex maximum digital Design
+      </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container-fluid bg-light p-3">
+  <div class=" bg-white py-3">
+    <div class="row reveal p-2">
+      <h4 class="p-3 "><b>Contact us</b></h4>
+      <hr class="new5">
+      <div class="col-lg-5">
+        <h2 class="fw-bold text-body-emphasis">Get in touch with us today</h2>
+        <p class="text-body-secondary">Our top most priority is to listen and to get our customers feedback,Make sure
+          you raise any concern relating to our products and we will respond to you as soon as possible.</p>
+        <a href="#" class="btn btn-info btn-rounded mb-2">chat with us <i class="fa fa-whatsapp"></i></a>
+      </div>
+
+      <div class="col-lg-6">
+        <form action="{%url 'feedback'%}" method="post">
+          {%csrf_token%}
+          {% if user.is_authenticated%}
+          <div class="form-group">
+            <input type="text" name="email" id="" placeholder="Enter your email" class="form-control" value="{{user.email}}">
+          </div>
+          <div class="form-group">
+            <input type="text" name="username" id="" placeholder="Enter your username" class="form-control" value="{{user}}">
+          </div>
+          {%else%}
+          <div class="form-group">
+            <input type="text" name="username" id="" placeholder="Enter your username" class="form-control">
+          </div>
+          <div class="form-group">
+            <input type="text" name="email" id="email" placeholder="Enter your email" class="form-control">
+          </div>
+          {%endif%}
+
+          <div class="form-group">
+            <input type="text" name="subject" id="subject" placeholder="subject" class="form-control">
+          </div>
+          <div class="form-group">
+            <textarea name="message" id="message" class="form-control" placeholder="write your message"></textarea>
+          </div>
+          <div class="form-group mt-1">
+            <input type="submit" name="" id="" placeholder="Enter your email"
+              class="btn btn-info btn-rounded ">
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+  {% include 'newsletter.html'%}
+  {% include 'footer.html'%}
+
+  <script>
+    var typed = new Typed(".typed", {
+      strings: ["Great Discounts", "Great customer service & support", "Fast delivery", 'Secure Transactions'],
+      typeSpeed: 200,
+      backSpeed: 150
+    });
+  </script>
+  <script src="{% static  'mdbootstrap/js/mdb.umd.min.js'%}"></script>
+  <script src="/static/mdbootstrap/js/mdb.es.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"
+    integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+
+  </script>
+  {%endblock%}

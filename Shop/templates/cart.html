@@ -1,0 +1,128 @@
+{% extends 'base.html'%}
+{% load static%}
+{% load static %}
+{%block title%}Cart | Embu designs {%endblock%}
+{%block content%}
+{% include 'desktopsidebar.html' %}
+{% include 'topnav.html' %}
+
+
+
+  {%if messages%}
+<div class=" mt-1">
+    <div class="container">
+      <div class="col-lg-10"></div>
+        {% include 'messages.html' %}
+    </div>
+    </div>
+</div>
+{%endif%}
+  {%if items%}
+  {% if not order.complete %}
+  <div class="container-fluid mt-2" style="background-color: #d9d9d9;">
+  <div class="container">
+  <div class="row bg-white">
+    <p class="py-2 " ><a href="{% url 'products'%}" class="me-2 mt-3 text-dark fw-bold" > <i class="fa fa-arrow-left"></i> Continue shopping</a></p>
+  </div>
+  <div class="row py-2" >
+    <div class="col-xm-10 col-md-9 col-sm-10 col-lg-9 table-responsive-lg ">
+      <div class="">
+          {% for item in items%}
+                  <div class="card mb-1 bg-body rounded shadow-sm">
+                    <div class="card-body">
+                    <div class="row mb-2 d-flex justify-content-between align-items-center">
+                      <div class="col-md-2 col-lg-2 col-xl-2">
+                        <img
+                          src="{{item.product.image.url}}"
+                          class="img-fluid rounded-3" alt="Cotton T-shirt">
+                      </div>
+                      <div class="col-md-3 col-lg-3 col-xl-3">
+                        <h6 class="text-muted">{{item.product.get_type_name}}</h6>
+                        <h6 class="mb-0">{{item.product.product_name}}</h6>
+                      </div>
+                      <div class="col-md-4 col-lg-4 col-xl-2 d-flex">
+                        <button  data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2" id="update-cart" data-action="remove"  data-product="{{item.product.id}}">
+                          <i class="fa fa-minus text-dark mx-2" ></i>
+                        </button>
+  
+                        <input  min="0" name="quantity" style="text-align: center;" value="{{item.quantity}}" type="number"
+                          class="form-control mb-1 p-2" placeholder="{{item.quantity}}"  disabled/>
+  
+                        <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link  px-1" id="update-cart" data-action="add"  data-product="{{item.product.id}}">
+                          <i class="fa fa-plus text-dark"></i>
+                        </button>
+                      </div>
+                      <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                        <h6 class="mb-0 fw-bold">Ksh{{item.product.product_price}}</h6>
+                      </div>
+                      <div class="col-md-1 col-lg-3 col-xl-1 text-end">
+                        <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2 "  id="update-cart" data-action="delete"  data-product="{{item.product.id}}"><span class="text-danger text-underline" style="text-decoration: underline;">Remove item?</span></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                  {%endfor%}
+
+
+      </div>
+    </div>
+
+
+
+    <div class="card col-lg-3 col-md-10 col-sm-10 mb-3 text summary-card" style="padding: 0px !important;">
+      <div class="card-header  light text text-white" style="border-bottom: none !important;background-color: teal;"><i
+          class="fa fa-shopping-basket mx-2 "></i><b>order items</b></div>
+      <div class="card-body">
+        <h5 class="card-title"></h5>
+        <ul class="list-group mb-3">
+        <li class="list-group-item d-flex justify-content-between lh-sm">
+          <div>
+            <h6 class="my-0">Total items</h6>
+            <small class="text-body-secondary"></small>
+          </div>
+          <span class="text-body-secondary"><b>{{cartItems}}</b></span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between lh-sm">
+          <div>
+            <h6 class="my-0">Shipping cost(Ksh)</h6>
+            <small class="text-body-secondary"></small>
+          </div>
+          <span class="text-body-secondary"><b>{{order.shipping_cost}}</b></span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between lh-sm">
+          <div>
+            <h6 class="my-0">V.A.T(Ksh)</h6>
+            <small class="text-body-secondary"></small>
+          </div>
+          <span class="text-body-secondary"><b>0.0</b></span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between lh-sm">
+          <div>
+            <h6 class="my-0">Total(Ksh)</h6>
+            <small class="text-body-secondary"></small>
+          </div>
+          <span class="text-body-secondary"><b>{{order.get_cart_total}}</b></span>
+        </li>
+        
+        </ul>
+        <a href="{% url 'checkout'%}" class="btn btn-success " style="background-color: teal;">Proceed to checkout <i class="fa fa-arrow-right" ></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+  </div>
+{%endif%}
+{%else%}
+<div class="container mb-3 mt-2">
+  <div class="card">
+    <h2 class="mt-5 py-3 mb-3 text-center">Your cart is empty</h2>
+    
+    <p class="mb-3 text-center me-0"><a href="/" class="btn btn-outline-info">start shopping <i class="fa fa-arrow-right"></i></a></p>
+  </div>
+</div>
+
+{%endif%}
+</div>
+</div>
+{% include 'footer.html'%}
+{%endblock%}
